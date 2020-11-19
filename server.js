@@ -6,7 +6,7 @@ const port = 8000;
 const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 // const path = require('path')
-// const Gpio = require('onoff').Gpio;
+const Gpio = require("onoff").Gpio;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -18,7 +18,12 @@ app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 
 app.listen(port, () => console.log(`listenin on starboard: ${port}`));
 
+let LED = new Gpio(21, "out");
+let powerstate = false;
+
 app.post("/api/test", (req, res) => {
-    console.log("That was easy.");
-    return res.json({msg : "Hello"});
+    powerstate = !powerstate;
+    powerstate ? LED.writeSync(1) : LED.writeSync(0);
+    console.log(powerstate);
+    return res.json({ msg: "Hello" });
 });
