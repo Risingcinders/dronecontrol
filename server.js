@@ -21,7 +21,7 @@ app.listen(port, () => console.log(`listenin on starboard: ${port}`));
 let LED = new Gpio(21, "out");
 let powerstate = false;
 
-app.post("/api/test", (req, res) => {
+app.get("/api/test", (req, res) => {
     powerstate = !powerstate;
     powerstate ? LED.writeSync(1) : LED.writeSync(0);
     console.log(powerstate);
