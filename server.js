@@ -18,12 +18,30 @@ app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 
 app.listen(port, () => console.log(`listenin on starboard: ${port}`));
 
-let LED = new Gpio(21, "out");
-let powerstate = false;
+let redLED = new Gpio(21, "out");
+let greenLED = new Gpio(14, "out");
+let blueLED = new Gpio(13, "out");
 
-app.get("/api/test", (req, res) => {
-    powerstate = !powerstate;
-    powerstate ? LED.writeSync(1) : LED.writeSync(0);
-    console.log(powerstate);
-    return res.json({ msg: "Hello" });
+let redState = false;
+app.get("/api/red", (req, res) => {
+    redState = !redState;
+    redState ? redLED.writeSync(1) : redLED.writeSync(0);
+    console.log(redState);
+    return res.json({ msg: redState ? "The red light is on" : "The red light is off" });
+});
+
+let greenState = false;
+app.get("/api/green", (req, res) => {
+    greenState = !greenState;
+    greenState ? greenLED.writeSync(1) : greenLED.writeSync(0);
+    console.log(greenState);
+    return res.json({ msg: greenState ? "The red light is on" : "The red light is off" });
+});
+
+let blueState = false;
+app.get("/api/blue", (req, res) => {
+    blueState = !blueState;
+    blueState ? blueLED.writeSync(1) : blueLED.writeSync(0);
+    console.log(blueState);
+    return res.json({ msg: blueState ? "The red light is on" : "The red light is off" });
 });
