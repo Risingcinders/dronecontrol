@@ -26,7 +26,7 @@ let redState = false;
 app.get("/api/red", (req, res) => {
     redState = !redState;
     redState ? redLED.writeSync(1) : redLED.writeSync(0);
-    console.log(redState);
+    console.log("red: ", redState);
     return res.json({ msg: redState ? "The red light is on" : "The red light is off" });
 });
 
@@ -34,14 +34,14 @@ let greenState = false;
 app.get("/api/green", (req, res) => {
     greenState = !greenState;
     greenState ? greenLED.writeSync(1) : greenLED.writeSync(0);
-    console.log(greenState);
-    return res.json({ msg: greenState ? "The red light is on" : "The red light is off" });
+    console.log("green: ", greenState);
+    return res.json({ msg: greenState ? "The green light is on" : "The green light is off" });
 });
 
 let blueState = false;
 app.get("/api/blue", (req, res) => {
     blueState = !blueState;
     blueState ? blueLED.writeSync(1) : blueLED.writeSync(0);
-    console.log(blueState);
-    return res.json({ msg: blueState ? "The red light is on" : "The red light is off" });
+    console.log("blue: ", blueState);
+    return res.json({ msg: blueState ? "The blue light is on" : "The blue light is off" });
 });
